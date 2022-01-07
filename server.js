@@ -21,6 +21,13 @@ app.get('/notes', (req, res) =>
     res.sendFile(path.join(__dirname, './public/notes.html'))
 );
 
+// GET route to read and return db.json file as JSON
+app.get('./api/notes', (req, res) =>
+    res.json(db)
+);
+
+
+
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
