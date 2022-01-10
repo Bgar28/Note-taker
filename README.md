@@ -17,8 +17,10 @@
   ## Usage
 
   This application utilizes Express.js.Below, I have demonstrated the ability to add 2 separate notes, then delete one. <br/>
-  ![screenshot]() <br/>
-  ![screenshot]()
+  ![screenshot](https://github.com/Bgar28/Note-taker/blob/main/public/assets/screenshot1.png) <br/>
+  ![screenshot](https://github.com/Bgar28/Note-taker/blob/main/public/assets/screenshot2.png) <br/>
+  ![screenshot](https://github.com/Bgar28/Note-taker/blob/main/public/assets/screenshot3.png)
+
 
   ## License
   ![MIT](https://img.shields.io/badge/License-MIT-yellow.svg) Licensed under MIT.
