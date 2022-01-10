@@ -54,7 +54,7 @@ app.post('/api/notes', (req, res) => {
             if (err){
                 return res.status(400).json(res)
             }
-            console.log('db is here')
+            console.log('New note is here!', newData)
             return res.json(newData)
         })
     })
@@ -74,7 +74,7 @@ app.delete('/api/notes/:id', (req, res) => {
         console.log(data)
 
         fs.writeFile('./db/db.json', JSON.stringify(updatedDb), () => {
-            console.log('db is here')
+            console.log('Note has been deleted!', updatedDb)
             res.json(updatedDb)
         })
 
