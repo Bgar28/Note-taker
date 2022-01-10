@@ -24,8 +24,15 @@ app.get('/notes', (req, res) =>
 
 // GET route to read and return db.json file as JSON
 app.get('/api/notes', (req, res) => {
-    res.json(db)
-});
+    fs.readFile('./db/db.json', 'utf-8', (err, data) => {
+        if(err){
+            return res.status(400).json(res)
+        }
+        console.log(data)
+        res.json(JSON.parse(data))
+    })
+}
+);
 
 // POST route will save new note, add to db.json file, then return it to client
 app.post('/api/notes', (req, res) => {
@@ -40,7 +47,7 @@ app.post('/api/notes', (req, res) => {
         if (err) {
            return res.status(400).json(err);
         }
-        console.log('db is here');
+        console.log('New note added!', newNote);
         res.json(newNote);
     })
 });
@@ -54,7 +61,7 @@ app.delete('/api/notes/:id', (req, res) => {
         if (err) {
             return res.status(400).json(err);
          }
-        console.log('db is here')
+        console.log('Note is deleted!', updatedDb)
         res.json(updatedDb)
     })
 })
