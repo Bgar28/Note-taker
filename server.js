@@ -62,17 +62,25 @@ app.post('/api/notes', (req, res) => {
 
 // DELETE route will delete a note with specified id 
 app.delete('/api/notes/:id', (req, res) => {
-    const updatedDb = db.filter((note) => {
-        return note.id !== req.params.id
+
+    fs.readFile('./db/db.json', 'utf-8', (err, data) => {
+        if(err){
+            return res.status(400).json(res)
+        }
+
+        const updatedDb = JSON.parse(data).filter((note) => {
+            return note.id != req.params.id
+        })
+        console.log(data)
+
+        fs.writeFile('./db/db.json', JSON.stringify(updatedDb), () => {
+            console.log('db is here')
+            res.json(updatedDb)
+        })
+
     })
-    fs.writeFile('./db/db.json', JSON.stringify(updatedDb), (err) => {
-        if (err) {
-            return res.status(400).json(err);
-         }
-        console.log('Note is deleted!', updatedDb)
-        res.json(updatedDb)
-    })
-})
+    
+});
 
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
