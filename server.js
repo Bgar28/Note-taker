@@ -34,7 +34,7 @@ app.get('/api/notes', (req, res) => {
 }
 );
 
-// POST route will save new note, add to db.json file, then return it to client
+// POST route will read then save new note, add to db.json file, then return it to client
 app.post('/api/notes', (req, res) => {
     const { title, text } = req.body;
     const newNote = {
@@ -42,13 +42,21 @@ app.post('/api/notes', (req, res) => {
         text,
         id: uuid(),
     };
-    db.push(newNote)
-    fs.writeFile('./db/db.json', JSON.stringify(db), (err) => {
-        if (err) {
-           return res.status(400).json(err);
+
+    fs.readFile('./db/db.json', 'utf-8', (err, data) => {
+        if(err){
+            return res.status(400).json(res)
         }
-        console.log('New note added!', newNote);
-        res.json(newNote);
+
+        const newData = [...JSON.parse(data), newNote]
+
+        fs.writeFile('./db/db.json', JSON.stringify(newData), (err) => {
+            if (err){
+                return res.status(400).json(res)
+            }
+            console.log('db is here')
+            return res.json(newData)
+        })
     })
 });
 
